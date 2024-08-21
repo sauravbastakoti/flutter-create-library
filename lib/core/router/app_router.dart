@@ -4,7 +4,7 @@ import 'package:greatticket/features/login_register/login_screen.dart';
 import 'package:greatticket/features/login_register/register_screen.dart';
 import 'package:greatticket/features/screens/dashboard.dart';
 import 'package:greatticket/features/screens/event.dart';
-import 'package:greatticket/features/screens/notification.dart';
+import 'package:greatticket/features/screens/scan.dart';
 import 'package:greatticket/features/screens/profile.dart';
 import 'package:greatticket/responsive/scaffold_with_bottom_navbar.dart';
 import 'package:greatticket/views/splash_screen.dart';
@@ -43,16 +43,16 @@ class AppRouter {
                 DashboardScreen(pageController: PageController()),
           ),
           GoRoute(
-            name: Events.routeName,
+            name: Categories.routeName,
             path: '/events',
             builder: (context, state) =>
-                Events(pageController: PageController()),
+                Categories(pageController: PageController()),
           ),
           GoRoute(
-            name: Notifications.routeName,
-            path: '/notifications',
+            name: PlantScanner.routeName,
+            path: '/plantscanner',
             builder: (context, state) =>
-                Notifications(pageController: PageController()),
+                PlantScanner(pageController: PageController()),
           ),
           GoRoute(
             name: Profile.routeName,

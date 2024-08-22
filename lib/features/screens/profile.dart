@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:greatticket/features/notifications.dart';
+import 'package:greatticket/features/screens/settings/order_history.dart';
 import 'package:greatticket/features/screens/settings/user_informations.dart';
 
 class Profile extends StatelessWidget {
@@ -19,9 +22,7 @@ class Profile extends StatelessWidget {
           children: [
             IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                // Handle back button press
-              },
+              onPressed: () {},
             ),
             const SizedBox(height: 20),
             Center(
@@ -67,13 +68,17 @@ class Profile extends StatelessWidget {
                   ),
                   _buildProfileOption(
                     context,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(MyOrdersPage());
+                    },
                     label: 'Order History',
                     icon: Icons.history,
                   ),
                   _buildProfileOption(
                     context,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(NotificationsPage());
+                    },
                     label: 'Notifications',
                     icon: Icons.notifications_outlined,
                   ),

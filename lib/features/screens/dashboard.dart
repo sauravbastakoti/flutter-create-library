@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:greatticket/features/screens/cart/add_to_cart.dart';
+import 'package:greatticket/features/screens/search/search.dart';
+import 'package:greatticket/features/screens/settings/user_informations.dart';
 
 class DashboardScreen extends StatefulWidget {
   final PageController pageController;
@@ -30,14 +35,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.shopping_cart),
-                    onPressed: () {
-                      // Handle cart button press
-                    },
+                    onPressed: () {},
                   ),
                   IconButton(
                     icon: const Icon(Icons.person),
                     onPressed: () {
-                      //Get.to(const ProfileScreen());
+                      Get.to(const UserInformations());
                     },
                   ),
                 ],
@@ -54,33 +57,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 15),
-                      const Icon(Icons.search, color: Color(0xFF706060)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Search for Products',
-                            hintStyle: GoogleFonts.getFont(
-                              'Roboto Condensed',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                              color: const Color(0xFF706060),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 15),
+                        const Icon(Icons.search, color: Color(0xFF706060)),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Search for Products',
+                              hintStyle: GoogleFonts.getFont(
+                                'Roboto Condensed',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 18,
+                                color: const Color(0xFF706060),
+                              ),
+                              border: InputBorder.none,
                             ),
-                            border: InputBorder.none,
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
               const SizedBox(width: 10),
               TextButton(
                 onPressed: () {
-                  // Handle search button press
+                  Get.to(const Search());
                 },
                 child: Text(
                   'Search',
@@ -105,25 +111,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: const [
                 ProductCard(
                   imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwITOPrrqywiHe2kmT6w2paaDVD3JJYEiBsg&s',
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNZzWjxoOwNcCnnarroe4-Jnm_aswJo8QTvg&s',
                   name: 'Corn',
                   price: '25',
                 ),
                 ProductCard(
                   imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwITOPrrqywiHe2kmT6w2paaDVD3JJYEiBsg&s',
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNZzWjxoOwNcCnnarroe4-Jnm_aswJo8QTvg&s',
                   name: 'Cucumber',
                   price: '115',
                 ),
                 ProductCard(
                   imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwITOPrrqywiHe2kmT6w2paaDVD3JJYEiBsg&s',
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNZzWjxoOwNcCnnarroe4-Jnm_aswJo8QTvg&s',
                   name: 'Gourds',
                   price: '110',
                 ),
                 ProductCard(
                   imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwITOPrrqywiHe2kmT6w2paaDVD3JJYEiBsg&s',
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNZzWjxoOwNcCnnarroe4-Jnm_aswJo8QTvg&s',
                   name: 'Pumpkin',
                   price: '125',
                 ),
@@ -227,7 +233,8 @@ class ProductCard extends StatelessWidget {
         children: [
           Image.network(
             imageUrl,
-            height: 70,
+            height: 10,
+            width: 10,
             fit: BoxFit.cover,
           ),
           const SizedBox(height: 10),
@@ -250,7 +257,7 @@ class ProductCard extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
-              // Handle add to cart button press
+              Get.to(const CartPage());
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,

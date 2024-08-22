@@ -55,7 +55,7 @@ class _PlantScannerState extends State<PlantScanner> {
   Future<void> _uploadImage() async {
     if (_image == null) return;
 
-    var uri = Uri.parse('http://127.0.0.1:8000/predict/');
+    var uri = Uri.parse('http://192.168.1.96:8000/predict/');
     var stream = http.ByteStream(DelegatingStream.typed(_image!.openRead()));
     var length = await _image!.length();
     var request = http.MultipartRequest('POST', uri);

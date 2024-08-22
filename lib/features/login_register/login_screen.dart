@@ -225,10 +225,15 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:greatticket/core/shared_prefences/locator.dart';
+import 'package:greatticket/core/shared_prefences/shared_prefences_service.dart';
+import 'package:greatticket/cubits/login/login_cubit.dart';
 import 'package:greatticket/features/login_register/register_screen.dart';
 import 'package:greatticket/features/screens/dashboard.dart';
+import 'package:greatticket/services/api_services.dart';
 
 class LoginScreen extends StatefulWidget {
   static String routeName = '/loginScreenLoginScreen';
@@ -243,88 +248,148 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFD4FCE4),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
-            child: Column(
+    return BlocProvider(
+      create: (context) => LoginCubit(locator.get<ApiService>()),
+      child: Builder(builder: (context) {
+        return BlocListener<LoginCubit, LoginState>(
+          listener: (context, state) async {
+            if (state.status == LoginStatus.loggedIn) {
+              print("Login successful, token: ${state.key}");
+              await locator.get<SharedPreferencesService>().setToken(state.key);
+              context.goNamed(DashboardScreen.routeName);
+            } else if (state.status == LoginStatus.error) {
+              //snack bar
+              //
+            }
+          },
+          child: Scaffold(
+            backgroundColor: const Color(0xFFD4FCE4),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {},
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {},
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          context.pushNamed(DashboardScreen.routeName);
+                        },
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Login ',
+                            style: GoogleFonts.getFont(
+                              'Roboto Condensed',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 32,
+                              letterSpacing: 0.4,
+                              color: const Color(0xFF000000),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      _buildTextField(
+                        context,
+                        controller: _email,
+                        label: 'Username',
+                        icon: Icons.person,
+                      ),
+                      const SizedBox(height: 20),
+                      _buildTextField(
+                        context,
+                        controller: _password,
+                        label: 'Password',
+                        icon: Icons.lock,
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          'Forget Password?',
+                          style: GoogleFonts.getFont(
+                            'Roboto Condensed',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            color: const Color(0xFF000000),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.symmetric(horizontal: 19),
+                        decoration: BoxDecoration(
+                          color: const Color(0xC91B9527),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            context.read<LoginCubit>().login(
+                                  _email.text,
+                                  _password.text,
+                                );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            child: Text(
+                              'LoginScreen',
+                              style: GoogleFonts.getFont(
+                                'Roboto Condensed',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20,
+                                color: const Color(0xFFFFFFFF),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    context.pushNamed(DashboardScreen.routeName);
+                    context.pushNamed(RegisterScreen.routeName);
                   },
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Login ',
-                      style: GoogleFonts.getFont(
-                        'Roboto Condensed',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 32,
-                        letterSpacing: 0.4,
-                        color: const Color(0xFF000000),
-                      ),
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFFCF6F6),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 40),
-                _buildTextField(
-                  context,
-                  label: 'Username',
-                  icon: Icons.person,
-                ),
-                const SizedBox(height: 20),
-                _buildTextField(
-                  context,
-                  label: 'Password',
-                  icon: Icons.lock,
-                  obscureText: true,
-                ),
-                const SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'Forget Password?',
-                    style: GoogleFonts.getFont(
-                      'Roboto Condensed',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: const Color(0xFF000000),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 40),
-                Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.symmetric(horizontal: 19),
-                  decoration: BoxDecoration(
-                    color: const Color(0xC91B9527),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      context.pushNamed(DashboardScreen.routeName);
-                    },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: Text(
-                        'LoginScreen',
-                        style: GoogleFonts.getFont(
-                          'Roboto Condensed',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20,
-                          color: const Color(0xFFFFFFFF),
+                      padding: const EdgeInsets.fromLTRB(0, 17.5, 0, 20.5),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'New user sign up here',
+                          style: GoogleFonts.getFont(
+                            'Roboto Condensed',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20,
+                            color: const Color(0xFF000000),
+                          ),
                         ),
                       ),
                     ),
@@ -333,41 +398,16 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              context.pushNamed(RegisterScreen.routeName);
-            },
-            child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Color(0xFFFCF6F6),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 17.5, 0, 20.5),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'New user sign up here',
-                    style: GoogleFonts.getFont(
-                      'Roboto Condensed',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      color: const Color(0xFF000000),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      }),
     );
   }
 
   Widget _buildTextField(BuildContext context,
       {required String label,
       required IconData icon,
-      bool obscureText = false}) {
+      bool obscureText = false,
+      TextEditingController? controller}) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 25),
       decoration: BoxDecoration(
@@ -375,6 +415,7 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(40),
       ),
       child: TextFormField(
+        controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
           prefixIcon: Icon(icon, color: const Color(0xFF706060)),

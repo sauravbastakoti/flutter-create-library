@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:greatticket/features/screens/settings/user_informations.dart';
 
 class Profile extends StatelessWidget {
   static String routeName = '/profile';
@@ -57,31 +59,39 @@ class Profile extends StatelessWidget {
                   const SizedBox(height: 20),
                   _buildProfileOption(
                     context,
+                    onPressed: () {
+                      context.pushNamed(UserInformations.routeName);
+                    },
                     label: 'Personal Information',
                     icon: Icons.person_outline,
                   ),
                   _buildProfileOption(
                     context,
+                    onPressed: () {},
                     label: 'Order History',
                     icon: Icons.history,
                   ),
                   _buildProfileOption(
                     context,
+                    onPressed: () {},
                     label: 'Notifications',
                     icon: Icons.notifications_outlined,
                   ),
                   _buildProfileOption(
                     context,
+                    onPressed: () {},
                     label: 'Feedback',
                     icon: Icons.feedback_outlined,
                   ),
                   _buildProfileOption(
                     context,
+                    onPressed: () {},
                     label: 'Rate Us',
                     icon: Icons.star_border,
                   ),
                   _buildProfileOption(
                     context,
+                    onPressed: () {},
                     label: 'Term of Service',
                     icon: Icons.description_outlined,
                   ),
@@ -118,8 +128,12 @@ class Profile extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileOption(BuildContext context,
-      {required String label, required IconData icon}) {
+  Widget _buildProfileOption(
+    BuildContext context, {
+    required String label,
+    required IconData icon,
+    required VoidCallback onPressed, // Add this parameter
+  }) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
@@ -145,9 +159,7 @@ class Profile extends StatelessWidget {
           ),
         ),
         trailing: const Icon(Icons.chevron_right),
-        onTap: () {
-          // Handle option tap
-        },
+        onTap: onPressed, // Trigger the callback when tapped
       ),
     );
   }

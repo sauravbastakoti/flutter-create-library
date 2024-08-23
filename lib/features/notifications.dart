@@ -7,7 +7,7 @@ class NotificationsPage extends StatelessWidget {
       message:
           "Fresh organic carrots are now available from a nearby farm. Don't miss out!",
       imageUrl:
-          'https://example.com/carrots.jpg', // Replace with your network image URL
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzzmJtCa3MKdHJOtm8ta9boc0GPJ9UXwvefw&s', // Replace with your network image URL
       timeAgo: '9m ago',
     ),
     NotificationItem(
@@ -42,7 +42,7 @@ class NotificationsPage extends StatelessWidget {
       message:
           "Get 20% off on fresh spinach and carrots from local farms. Limited time offer!",
       imageUrl:
-          'https://example.com/vegetables.jpg', // Replace with your network image URL
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzzmJtCa3MKdHJOtm8ta9boc0GPJ9UXwvefw&s', // Replace with your network image URL
       timeAgo: '2 days ago',
     ),
   ];
@@ -57,7 +57,6 @@ class NotificationsPage extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
       ),
       body: Container(
         color: const Color(0xFFE0F7E7), // Background color

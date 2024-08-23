@@ -126,12 +126,12 @@
 //     required this.imageUrl,
 //     required this.statusColor,
 //   });
-// }
-
-import 'package:flutter/material.dart';
+// }import 'package:flutter/material.dart';
 import 'package:KrishiKranti/utils/api_string.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyOrdersPage extends StatefulWidget {
   const MyOrdersPage({super.key});
@@ -143,6 +143,7 @@ class MyOrdersPage extends StatefulWidget {
 class _MyOrdersPageState extends State<MyOrdersPage> {
   List<CartItem> cartItems = [];
   bool isLoading = true;
+  String? errorMessage;
 
   @override
   void initState() {
@@ -151,9 +152,15 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   }
 
   Future<void> fetchCartItems() async {
-    final url = Uri.parse('${ApiString.baseUrl}cart/');
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    final url = Uri.parse('${ApiString.baseUrl}seller/products/');
     try {
-      final response = await http.get(url);
+      final response = await http.get(
+        url,
+        headers: token != null ? {"Authorization": "Bearer $token"} : {},
+      );
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         setState(() {
@@ -161,13 +168,16 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
           isLoading = false;
         });
       } else {
-        throw Exception('Failed to load cart items');
+        setState(() {
+          errorMessage = 'Failed to load cart items';
+          isLoading = false;
+        });
       }
     } catch (e) {
       setState(() {
+        errorMessage = 'Error fetching cart items: $e';
         isLoading = false;
       });
-      print('Error fetching cart items: $e');
     }
   }
 
@@ -179,48 +189,75 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        //  leading: const Icon(Icons.arrow_back, color: Colors.black),
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: cartItems.length,
-              itemBuilder: (context, index) {
-                final cartItem = cartItems[index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+          : errorMessage != null
+              ? Center(child: Text(errorMessage!))
+              : cartItems.isEmpty
+                  ? const Center(child: Text('No orders found'))
+                  : ListView.builder(
+                      itemCount: cartItems.length,
+                      itemBuilder: (context, index) {
+                        final cartItem = cartItems[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: ListTile(
+                              contentPadding: const EdgeInsets.all(8.0),
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.network(
+                                  cartItem.product.productImage,
+                                  width: 50,
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    } else {
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          value: loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  (loadingProgress
+                                                          .expectedTotalBytes ??
+                                                      1)
+                                              : null,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const Icon(Icons.error,
+                                        color: Colors.red);
+                                  },
+                                ),
+                              ),
+                              title: Text(
+                                '${cartItem.product.productName} (x${cartItem.quantity})',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              subtitle: Text(
+                                'Price: \$${cartItem.price}',
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(8.0),
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
-                          'http://127.0.0.1:8000${cartItem.product.productImage}',
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      title: Text(
-                        '${cartItem.product.productName} (x${cartItem.quantity})',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Price: \$${cartItem.price}',
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
     );
   }
 }
@@ -244,12 +281,12 @@ class CartItem {
 
   factory CartItem.fromJson(Map<String, dynamic> json) {
     return CartItem(
-      id: json['id'],
-      cart: Cart.fromJson(json['cart']),
-      user: json['user'],
-      product: Product.fromJson(json['product']),
-      price: json['price'].toDouble(),
-      quantity: json['quantity'],
+      id: json['id'] ?? 0,
+      cart: Cart.fromJson(json['cart'] ?? {}),
+      user: json['user'] ?? 0,
+      product: Product.fromJson(json['product'] ?? {}),
+      price: (json['price'] ?? 0.0).toDouble(),
+      quantity: json['quantity'] ?? 0,
     );
   }
 }
@@ -269,10 +306,10 @@ class Cart {
 
   factory Cart.fromJson(Map<String, dynamic> json) {
     return Cart(
-      id: json['id'],
-      ordered: json['ordered'],
-      totalPrice: json['total_price'].toDouble(),
-      user: json['user'],
+      id: json['id'] ?? 0,
+      ordered: json['ordered'] ?? false,
+      totalPrice: (json['total_price'] ?? 0.0).toDouble(),
+      user: json['user'] ?? 0,
     );
   }
 }
@@ -298,13 +335,13 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      productId: json['product_id'],
-      category: Category.fromJson(json['category']),
-      productName: json['product_name'],
-      productPrice: json['product_price'].toDouble(),
-      productDescription: json['product_description'],
-      productImage: json['product_image'],
-      seller: json['seller'],
+      productId: json['product_id'] ?? 0,
+      category: Category.fromJson(json['category'] ?? {}),
+      productName: json['product_name'] ?? '',
+      productPrice: (json['product_price'] ?? 0.0).toDouble(),
+      productDescription: json['product_description'] ?? '',
+      productImage: json['product_image'] ?? '',
+      seller: json['seller'] ?? 0,
     );
   }
 }
@@ -320,8 +357,8 @@ class Category {
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
-      categoryId: json['category_id'],
-      categoryName: json['category_name'],
+      categoryId: json['category_id'] ?? 0,
+      categoryName: json['category_name'] ?? '',
     );
   }
 }

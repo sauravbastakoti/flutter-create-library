@@ -1,9 +1,10 @@
+import 'package:KrishiKranti/features/chat/chat.dart';
 import 'package:KrishiKranti/features/screens/dashboard.dart';
 import 'package:KrishiKranti/features/screens/event.dart';
 import 'package:KrishiKranti/features/screens/profile.dart';
 import 'package:KrishiKranti/features/screens/scan.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class ScaffoldWithBottomNavbar extends StatefulWidget {
@@ -22,96 +23,9 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: PreferredSize(
-      //   preferredSize: const Size.fromHeight(70),
-      //   child: AppBar(
-      //     elevation: 4,
-      //     title: Row(
-      //       children: [
-      //         Padding(
-      //           padding: const EdgeInsets.only(left: 10, right: 5),
-      //           child: Image.asset(
-      //             Theme.of(context).brightness == Brightness.dark
-      //                 ? 'assets/dealslogo.png'
-      //                 : 'assets/dealslogob.png',
-      //             height: 90,
-      //             width: 90,
-      //           ),
-      //         ),
-      //         const Spacer(),
-      //         Container(
-      //           padding:
-      //               const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-      //           decoration: BoxDecoration(
-      //             borderRadius: BorderRadius.circular(20),
-      //           ),
-      //           child: Padding(
-      //             padding: const EdgeInsets.only(top: 28),
-      //             child: Column(
-      //               children: [
-      //                 Row(
-      //                   children: [
-      //                     const Text(
-      //                       '🇸🇰',
-      //                       style: TextStyle(fontSize: 20),
-      //                     ),
-      //                     const SizedBox(
-      //                       width: 3,
-      //                     ),
-      //                     Text(
-      //                       isPointsVisible ? ' ${'amount'}' : 'XXXX.XX',
-      //                       style: const TextStyle(
-      //                         fontWeight: FontWeight.bold,
-      //                         fontSize: 16,
-      //                       ),
-      //                     ),
-      //                     const SizedBox(
-      //                       width: 4,
-      //                     ),
-      //                     GestureDetector(
-      //                         onTap: () {
-      //                           setState(() {
-      //                             isPointsVisible = !isPointsVisible;
-      //                           });
-      //                         },
-      //                         child: Icon(
-      //                           isPointsVisible
-      //                               ? Icons.remove_red_eye_outlined
-      //                               : Icons.remove_red_eye,
-      //                         )),
-      //                   ],
-      //                 ),
-      //                 Transform.translate(
-      //                   offset: const Offset(0, -4),
-      //                   child: const Row(
-      //                     children: [
-      //                       Padding(
-      //                         padding: EdgeInsets.only(left: 65),
-      //                         child: Text(
-      //                           ' state.symbol.toString()',
-      //                           style: TextStyle(
-      //                               fontSize: 14,
-      //                               color: Colors.purple,
-      //                               fontWeight: FontWeight.bold),
-      //                         ),
-      //                       ),
-      //                     ],
-      //                   ),
-      //                 )
-      //               ],
-      //             ),
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        // backgroundColor: Theme.of(context).brightness == Brightness.dark
-        //     ? primaryColor
-        //     : mobileBackgroundColor,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: const Color(0xFF1B9527),
         unselectedItemColor: const Color(0xFF706060),
@@ -140,6 +54,13 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
           onTapped(context, index);
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(const ChatScreen());
+        },
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.chat), // Set your desired color
+      ),
     );
   }
 
@@ -161,9 +82,6 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
       case 3:
         context.goNamed(Profile.routeName);
         break;
-      //   case 4:
-      //     context.goNamed(DashboardScreen.routeName);
-      //     break;
     }
   }
 }

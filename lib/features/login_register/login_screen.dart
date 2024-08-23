@@ -224,8 +224,10 @@
 //   }
 // }
 
+import 'package:KrishiKranti/features/forgot_password/forgot_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:KrishiKranti/core/shared_prefences/locator.dart';
@@ -326,15 +328,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: true,
                         ),
                         const SizedBox(height: 20),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            'Forget Password?',
-                            style: GoogleFonts.getFont(
-                              'Roboto Condensed',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              color: const Color(0xFF000000),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(ForgetPasswordScreen());
+                          },
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              'Forget Password?',
+                              style: GoogleFonts.getFont(
+                                'Roboto Condensed',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                color: const Color(0xFF000000),
+                              ),
                             ),
                           ),
                         ),

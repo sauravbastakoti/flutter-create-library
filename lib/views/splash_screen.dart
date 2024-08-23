@@ -59,7 +59,11 @@ class SplashScreenState extends State<SplashScreen> {
                 SizedBox(
                     height: MediaQuery.of(context).size.height / 2,
                     width: MediaQuery.of(context).size.width / 2,
-                    child: Image.asset(UiAssets.logo)
+                    child: Image.asset(
+                      UiAssets.log,
+                      width: 300,
+                      height: 300,
+                    )
 
                     // Image.asset(
                     //   Theme.of(context).brightness == Brightness.dark
@@ -78,7 +82,7 @@ class SplashScreenState extends State<SplashScreen> {
                     ),
                     children: const [
                       TextSpan(
-                        text: 'Companyy',
+                        text: 'Krishi Kanti',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),

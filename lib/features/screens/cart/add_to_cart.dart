@@ -148,6 +148,8 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:greatticket/features/screens/cart/confirm_booking.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -319,7 +321,14 @@ class _CartPageState extends State<CartPage> {
           _buildTotalRow("Total Cost", _totalCost),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(const ConfirmBookingPage(
+                name: 'name',
+                date: 'date',
+                time: 'time',
+                price: 'price',
+              ));
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,
               padding:

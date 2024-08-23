@@ -129,6 +129,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:greatticket/utils/api_string.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -150,7 +151,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   }
 
   Future<void> fetchCartItems() async {
-    final url = Uri.parse('http://127.0.0.1:8000/api/cart/');
+    final url = Uri.parse('${ApiString.baseUrl}cart/');
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -178,7 +179,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
+        //  leading: const Icon(Icons.arrow_back, color: Colors.black),
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())

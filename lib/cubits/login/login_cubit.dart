@@ -25,16 +25,16 @@ class LoginCubit extends Cubit<LoginState> {
 
     try {
       final response = await _apiService.postRequest(
-        'login',
+        'login/',
         {
-          'email': email,
+          'username': email,
           'password': password,
         },
       );
 
       if (response.statusCode == 200) {
         final jsonBody = response.data;
-        final key = jsonBody['data']['access_token'] as String;
+        final key = jsonBody['access'] as String;
         emit(
           state.copyWith(status: LoginStatus.loggedIn, key: key),
         );

@@ -255,8 +255,8 @@
 //     );
 //   }
 // }
-
 import 'package:flutter/material.dart';
+import 'package:greatticket/utils/api_string.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
@@ -283,7 +283,7 @@ class _CategoriesState extends State<Categories> {
 
   Future<void> _fetchProducts() async {
     final response =
-        await http.get(Uri.parse('http://127.0.0.1:8000/api/product?search='));
+        await http.get(Uri.parse('${ApiString.baseUrl}product?search='));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -555,13 +555,16 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      productId: json['product_id'],
+      productId: json['product_id'] ?? 0, // Default to 0 if null
       category: Category.fromJson(json['category']),
-      productName: json['product_name'],
-      productPrice: json['product_price'].toDouble(),
-      productDescription: json['product_description'],
-      productImage: json['product_image'],
-      seller: json['seller'],
+      productName:
+          json['product_name'] ?? 'Unknown', // Default to 'Unknown' if null
+      productPrice: (json['product_price'] != null)
+          ? json['product_price'].toDouble()
+          : 0.0, // Default to 0.0 if null
+      productDescription: json['product_description'] ?? '',
+      productImage: json['product_image'] ?? '',
+      seller: json['seller'] ?? 0, // Default to 0 if null
     );
   }
 }
@@ -577,8 +580,9 @@ class Category {
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
-      categoryId: json['category_id'],
-      categoryName: json['category_name'],
+      categoryId: json['category_id'] ?? 0, // Default to 0 if null
+      categoryName:
+          json['category_name'] ?? 'Unknown', // Default to 'Unknown' if null
     );
   }
 }

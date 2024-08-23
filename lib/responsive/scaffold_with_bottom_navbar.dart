@@ -129,8 +129,8 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
             label: 'Scan',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
         onTap: (index) {

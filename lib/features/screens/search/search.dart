@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:greatticket/utils/api_string.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -21,8 +22,8 @@ class _SearchState extends State<Search> {
       _isLoading = true;
     });
 
-    final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/product?search=$query'));
+    final response =
+        await http.get(Uri.parse('${ApiString.baseUrl}product?search=$query'));
 
     if (response.statusCode == 200) {
       setState(() {

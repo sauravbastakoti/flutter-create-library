@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:greatticket/features/screens/cart/add_to_cart.dart';
+import 'package:greatticket/features/screens/cart/sell_vegetables.dart';
 import 'package:greatticket/features/screens/search/search.dart';
 import 'package:greatticket/features/screens/settings/user_informations.dart';
 
@@ -102,39 +103,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           const SizedBox(height: 20),
           const CategoriesSection(),
-          const SizedBox(height: 20),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              children: const [
-                ProductCard(
-                  imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNZzWjxoOwNcCnnarroe4-Jnm_aswJo8QTvg&s',
-                  name: 'Corn',
-                  price: '25',
+          const SizedBox(height: 40),
+          Column(
+            children: [
+              Container(
+                height: 200,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        'https://cdn.britannica.com/17/196817-159-9E487F15/vegetables.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                ProductCard(
-                  imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNZzWjxoOwNcCnnarroe4-Jnm_aswJo8QTvg&s',
-                  name: 'Cucumber',
-                  price: '115',
-                ),
-                ProductCard(
-                  imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNZzWjxoOwNcCnnarroe4-Jnm_aswJo8QTvg&s',
-                  name: 'Gourds',
-                  price: '110',
-                ),
-                ProductCard(
-                  imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNZzWjxoOwNcCnnarroe4-Jnm_aswJo8QTvg&s',
-                  name: 'Pumpkin',
-                  price: '125',
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 20),
+              FeatureButton(
+                label: 'Buy Vegetables',
+                icon: Icons.shopping_cart,
+                color: const Color(0xFF1B9527),
+                onTap: () {
+                  // Add your onTap functionality here
+                  print('Buy Vegetables tapped');
+                },
+              ),
+              FeatureButton(
+                label: 'Sell Vegetables',
+                icon: Icons.attach_money,
+                color: const Color.fromARGB(255, 31, 160, 44),
+                onTap: () {
+                  Get.to(const SellVegetablesPage());
+                  print('Sell Vegetables tapped');
+                },
+              ),
+              FeatureButton(
+                label: 'Rice Disease Detection',
+                icon: Icons.local_florist,
+                color: const Color(0xFF1B9527),
+                onTap: () {
+                  // Add your onTap functionality here
+                  print('Rice Disease Detection tapped');
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -202,6 +212,51 @@ class CategoryButton extends StatelessWidget {
             'Roboto Condensed',
             fontWeight: FontWeight.w400,
             fontSize: 16,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FeatureButton extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
+
+  const FeatureButton(
+      {super.key,
+      required this.label,
+      required this.icon,
+      required this.color,
+      required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+            ],
+          ),
+          child: ListTile(
+            leading: Icon(icon, color: Colors.white),
+            title: Text(
+              label,
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ),
         ),
       ),

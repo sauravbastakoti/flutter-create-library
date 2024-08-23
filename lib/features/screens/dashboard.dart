@@ -21,132 +21,134 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  // Handle back button press
-                },
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.shopping_cart),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.person),
-                    onPressed: () {
-                      Get.to(const UserInformations());
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 15),
-                        const Icon(Icons.search, color: Color(0xFF706060)),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Search for Products',
-                              hintStyle: GoogleFonts.getFont(
-                                'Roboto Condensed',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 18,
-                                color: const Color(0xFF706060),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    // Handle back button press
+                  },
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.shopping_cart),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.person),
+                      onPressed: () {
+                        Get.to(const UserInformations());
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 15),
+                          const Icon(Icons.search, color: Color(0xFF706060)),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Search for Products',
+                                hintStyle: GoogleFonts.getFont(
+                                  'Roboto Condensed',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 18,
+                                  color: const Color(0xFF706060),
+                                ),
+                                border: InputBorder.none,
                               ),
-                              border: InputBorder.none,
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              TextButton(
-                onPressed: () {
-                  Get.to(const Search());
-                },
-                child: Text(
-                  'Search',
-                  style: GoogleFonts.getFont(
-                    'Roboto Condensed',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 18,
-                    color: const Color(0xFF000000),
+                const SizedBox(width: 10),
+                TextButton(
+                  onPressed: () {
+                    Get.to(const Search());
+                  },
+                  child: Text(
+                    'Search',
+                    style: GoogleFonts.getFont(
+                      'Roboto Condensed',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18,
+                      color: const Color(0xFF000000),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          const CategoriesSection(),
-          const SizedBox(height: 40),
-          Column(
-            children: [
-              Container(
-                height: 200,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        'https://cdn.britannica.com/17/196817-159-9E487F15/vegetables.jpg'),
-                    fit: BoxFit.cover,
+              ],
+            ),
+            const SizedBox(height: 20),
+            const CategoriesSection(),
+            const SizedBox(height: 40),
+            Column(
+              children: [
+                Container(
+                  height: 200,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          'https://cdn.britannica.com/17/196817-159-9E487F15/vegetables.jpg'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              FeatureButton(
-                label: 'Buy Vegetables',
-                icon: Icons.shopping_cart,
-                color: const Color(0xFF1B9527),
-                onTap: () {
-                  // Add your onTap functionality here
-                  print('Buy Vegetables tapped');
-                },
-              ),
-              FeatureButton(
-                label: 'Sell Vegetables',
-                icon: Icons.attach_money,
-                color: const Color.fromARGB(255, 31, 160, 44),
-                onTap: () {
-                  Get.to(const SellVegetablesPage());
-                  print('Sell Vegetables tapped');
-                },
-              ),
-              FeatureButton(
-                label: 'Rice Disease Detection',
-                icon: Icons.local_florist,
-                color: const Color(0xFF1B9527),
-                onTap: () {
-                  // Add your onTap functionality here
-                  print('Rice Disease Detection tapped');
-                },
-              ),
-            ],
-          ),
-        ],
+                const SizedBox(height: 20),
+                FeatureButton(
+                  label: 'Buy Vegetables',
+                  icon: Icons.shopping_cart,
+                  color: const Color(0xFF1B9527),
+                  onTap: () {
+                    // Add your onTap functionality here
+                    print('Buy Vegetables tapped');
+                  },
+                ),
+                FeatureButton(
+                  label: 'Sell Vegetables',
+                  icon: Icons.attach_money,
+                  color: const Color.fromARGB(255, 31, 160, 44),
+                  onTap: () {
+                    Get.to(const SellVegetablesPage());
+                    print('Sell Vegetables tapped');
+                  },
+                ),
+                FeatureButton(
+                  label: 'Rice Disease Detection',
+                  icon: Icons.local_florist,
+                  color: const Color(0xFF1B9527),
+                  onTap: () {
+                    // Add your onTap functionality here
+                    print('Rice Disease Detection tapped');
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

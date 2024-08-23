@@ -4,7 +4,7 @@ import 'dart:convert';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
-
+//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
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
@@ -13,7 +13,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final List<String> _messages = [];
   final String _apiKey =
-      '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'; // Replace with a secure way to handle API keys
+      'akeuhwajhdkajhsxkjanskadbsawd wad'; // Replace with a secure way to handle API keys
 
   bool _isLoading = false;
 

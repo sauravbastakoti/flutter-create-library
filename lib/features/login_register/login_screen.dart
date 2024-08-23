@@ -2,8 +2,8 @@
 // import 'package:flutter/material.dart';
 // import 'package:go_router/go_router.dart';
 // import 'package:google_fonts/google_fonts.dart';
-// import 'package:greatticket/features/loginScreenLoginScreen_register/register_screen.dart';
-// import 'package:greatticket/features/screens/dashboard.dart';
+// import 'package:KrishiKranti/features/loginScreenLoginScreen_register/register_screen.dart';
+// import 'package:KrishiKranti/features/screens/dashboard.dart';
 
 // class LoginScreenScreen extends StatefulWidget {
 //   static String routeName = '/loginScreenLoginScreen';
@@ -228,12 +228,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:greatticket/core/shared_prefences/locator.dart';
-import 'package:greatticket/core/shared_prefences/shared_prefences_service.dart';
-import 'package:greatticket/cubits/login/login_cubit.dart';
-import 'package:greatticket/features/login_register/register_screen.dart';
-import 'package:greatticket/features/screens/dashboard.dart';
-import 'package:greatticket/services/api_services.dart';
+import 'package:KrishiKranti/core/shared_prefences/locator.dart';
+import 'package:KrishiKranti/core/shared_prefences/shared_prefences_service.dart';
+import 'package:KrishiKranti/cubits/login/login_cubit.dart';
+import 'package:KrishiKranti/features/login_register/register_screen.dart';
+import 'package:KrishiKranti/features/screens/dashboard.dart';
+import 'package:KrishiKranti/services/api_services.dart';
 
 class LoginScreen extends StatefulWidget {
   static String routeName = '/loginScreenLoginScreen';

@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:greatticket/core/shared_prefences/shared_prefences_service.dart';
-import 'package:greatticket/services/api_services.dart';
+import 'package:KrishiKranti/core/shared_prefences/shared_prefences_service.dart';
+import 'package:KrishiKranti/services/api_services.dart';
 
 final locator = GetIt.instance;
 

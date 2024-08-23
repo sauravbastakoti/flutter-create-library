@@ -1,5 +1,5 @@
 // import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:greatticket/core/shared_prefences/shared_prefences_service.dart';
+// import 'package:KrishiKranti/core/shared_prefences/shared_prefences_service.dart';
 
 // enum ThemeType { light, dark }
 

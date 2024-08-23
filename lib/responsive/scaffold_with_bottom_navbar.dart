@@ -1,10 +1,10 @@
+import 'package:KrishiKranti/features/screens/dashboard.dart';
+import 'package:KrishiKranti/features/screens/event.dart';
+import 'package:KrishiKranti/features/screens/profile.dart';
+import 'package:KrishiKranti/features/screens/scan.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:go_router/go_router.dart';
-import 'package:greatticket/features/screens/dashboard.dart';
-import 'package:greatticket/features/screens/event.dart';
-import 'package:greatticket/features/screens/profile.dart';
-import 'package:greatticket/features/screens/scan.dart';
 
 class ScaffoldWithBottomNavbar extends StatefulWidget {
   const ScaffoldWithBottomNavbar({super.key, required this.child});

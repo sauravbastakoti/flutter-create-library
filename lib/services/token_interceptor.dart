@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:greatticket/core/shared_prefences/shared_prefences_service.dart';
+import 'package:KrishiKranti/core/shared_prefences/shared_prefences_service.dart';
 
 class TokenInterceptor extends Interceptor {
   final SharedPreferencesService _preferencesService;

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:greatticket/core/shared_prefences/locator.dart';
-import 'package:greatticket/core/shared_prefences/shared_prefences_service.dart';
-import 'package:greatticket/features/login_register/login_screen.dart';
-import 'package:greatticket/resources/ui_assets.dart';
+import 'package:KrishiKranti/core/shared_prefences/locator.dart';
+import 'package:KrishiKranti/core/shared_prefences/shared_prefences_service.dart';
+import 'package:KrishiKranti/features/login_register/login_screen.dart';
+import 'package:KrishiKranti/resources/ui_assets.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

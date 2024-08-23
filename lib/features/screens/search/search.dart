@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:greatticket/utils/api_string.dart';
+import 'package:KrishiKranti/utils/api_string.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

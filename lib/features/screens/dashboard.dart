@@ -1,11 +1,11 @@
+import 'package:KrishiKranti/features/screens/cart/add_to_cart.dart';
+import 'package:KrishiKranti/features/screens/cart/sell_vegetables.dart';
+import 'package:KrishiKranti/features/screens/search/search.dart';
+import 'package:KrishiKranti/features/screens/settings/user_informations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:greatticket/features/screens/cart/add_to_cart.dart';
-import 'package:greatticket/features/screens/cart/sell_vegetables.dart';
-import 'package:greatticket/features/screens/search/search.dart';
-import 'package:greatticket/features/screens/settings/user_informations.dart';
 
 class DashboardScreen extends StatefulWidget {
   final PageController pageController;
@@ -312,7 +312,7 @@ class ProductCard extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
-              Get.to(const CartPage());
+              //Get.to(const CartPage());
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,

@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:greatticket/core/shared_prefences/exception.dart';
-import 'package:greatticket/core/shared_prefences/locator.dart';
-import 'package:greatticket/core/shared_prefences/shared_prefences_service.dart';
-import 'package:greatticket/services/redirect_interceptor.dart';
-import 'package:greatticket/services/token_interceptor.dart';
-import 'package:greatticket/utils/api_string.dart';
+import 'package:KrishiKranti/core/shared_prefences/exception.dart';
+import 'package:KrishiKranti/core/shared_prefences/locator.dart';
+import 'package:KrishiKranti/core/shared_prefences/shared_prefences_service.dart';
+import 'package:KrishiKranti/services/redirect_interceptor.dart';
+import 'package:KrishiKranti/services/token_interceptor.dart';
+import 'package:KrishiKranti/utils/api_string.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiService {

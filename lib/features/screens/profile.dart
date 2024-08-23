@@ -1,10 +1,10 @@
+import 'package:KrishiKranti/features/notifications.dart';
+import 'package:KrishiKranti/features/screens/settings/order_history.dart';
+import 'package:KrishiKranti/features/screens/settings/user_informations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:greatticket/features/notifications.dart';
-import 'package:greatticket/features/screens/settings/order_history.dart';
-import 'package:greatticket/features/screens/settings/user_informations.dart';
 
 class Profile extends StatelessWidget {
   static String routeName = '/profile';
@@ -69,7 +69,7 @@ class Profile extends StatelessWidget {
                   _buildProfileOption(
                     context,
                     onPressed: () {
-                      Get.to(MyOrdersPage());
+                      Get.to(const MyOrdersPage());
                     },
                     label: 'Order History',
                     icon: Icons.history,

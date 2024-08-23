@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:greatticket/core/router/app_router.dart';
-import 'package:greatticket/core/shared_prefences/locator.dart';
-import 'package:greatticket/core/shared_prefences/shared_prefences_service.dart';
-import 'package:greatticket/features/login_register/login_screen.dart';
+import 'package:KrishiKranti/core/router/app_router.dart';
+import 'package:KrishiKranti/core/shared_prefences/locator.dart';
+import 'package:KrishiKranti/core/shared_prefences/shared_prefences_service.dart';
+import 'package:KrishiKranti/features/login_register/login_screen.dart';
 
 class RedirectInterceptor extends Interceptor {
   @override

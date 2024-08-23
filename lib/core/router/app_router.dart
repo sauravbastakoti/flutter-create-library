@@ -1,14 +1,14 @@
+import 'package:KrishiKranti/features/login_register/login_screen.dart';
+import 'package:KrishiKranti/features/login_register/register_screen.dart';
+import 'package:KrishiKranti/features/screens/dashboard.dart';
+import 'package:KrishiKranti/features/screens/event.dart';
+import 'package:KrishiKranti/features/screens/profile.dart';
+import 'package:KrishiKranti/features/screens/scan.dart';
+import 'package:KrishiKranti/features/screens/settings/user_informations.dart';
+import 'package:KrishiKranti/responsive/scaffold_with_bottom_navbar.dart';
+import 'package:KrishiKranti/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:greatticket/features/login_register/login_screen.dart';
-import 'package:greatticket/features/login_register/register_screen.dart';
-import 'package:greatticket/features/screens/dashboard.dart';
-import 'package:greatticket/features/screens/event.dart';
-import 'package:greatticket/features/screens/scan.dart';
-import 'package:greatticket/features/screens/profile.dart';
-import 'package:greatticket/features/screens/settings/user_informations.dart';
-import 'package:greatticket/responsive/scaffold_with_bottom_navbar.dart';
-import 'package:greatticket/views/splash_screen.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(routes: <RouteBase>[

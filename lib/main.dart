@@ -1,11 +1,11 @@
+import 'package:KrishiKranti/core/router/app_router.dart';
+import 'package:KrishiKranti/core/shared_prefences/counter_bloc.dart';
+import 'package:KrishiKranti/core/shared_prefences/locator.dart';
+import 'package:KrishiKranti/core/shared_prefences/shared_prefences_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:greatticket/core/router/app_router.dart';
-import 'package:greatticket/core/shared_prefences/counter_bloc.dart';
 
 import 'package:get/get.dart';
-import 'package:greatticket/core/shared_prefences/locator.dart';
-import 'package:greatticket/core/shared_prefences/shared_prefences_service.dart'; // Import Get
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

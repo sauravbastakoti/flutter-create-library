@@ -129,7 +129,7 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:greatticket/utils/api_string.dart';
+import 'package:KrishiKranti/utils/api_string.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

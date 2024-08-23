@@ -255,11 +255,14 @@
 //     );
 //   }
 // }
+
+import 'package:KrishiKranti/features/screens/cart/add_to_cart.dart';
+import 'package:KrishiKranti/utils/api_string.dart';
 import 'package:flutter/material.dart';
-import 'package:greatticket/utils/api_string.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
 class Categories extends StatefulWidget {
   final PageController pageController;
@@ -313,20 +316,19 @@ class _CategoriesState extends State<Categories> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    // Handle back button press
-                  },
-                ),
                 Row(
                   children: [
                     IconButton(
                       icon: const Icon(Icons.shopping_cart),
                       onPressed: () {
-                        // Handle cart button press
+                        // Navigate to cart page
+                        Get.to(() => const CartPage(
+                              productName: '',
+                              productImage: '',
+                              productPrice: 0.0,
+                            ));
                       },
                     ),
                     IconButton(
@@ -370,41 +372,6 @@ class _CategoriesState extends State<Categories> {
             ),
             const SizedBox(height: 20),
             Text(
-              'Categories',
-              style: GoogleFonts.getFont(
-                'Roboto Condensed',
-                fontWeight: FontWeight.w500,
-                fontSize: 20,
-                color: const Color(0xFF000000),
-              ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 60,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildCategoryChip(
-                    'All',
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRyX_ZPWyqk8VFCXe4QnGhAnK5gd28OfPjMw&s',
-                  ),
-                  _buildCategoryChip(
-                    'Leafy greens',
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRyX_ZPWyqk8VFCXe4QnGhAnK5gd28OfPjMw&s',
-                  ),
-                  _buildCategoryChip(
-                    'Root Vegetables',
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwITOPrrqywiHe2kmT6w2paaDVD3JJYEiBsg&s',
-                  ),
-                  _buildCategoryChip(
-                    'Cruciferous',
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_segST6eQM_DDYlmBzvb3fNCjp5OuzFWAhA&s',
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
               'All Items',
               style: GoogleFonts.getFont(
                 'Roboto Condensed',
@@ -431,6 +398,7 @@ class _CategoriesState extends State<Categories> {
                       product.productImage,
                       product.productName,
                       'Rs. ${product.productPrice.toStringAsFixed(2)}',
+                      product,
                     );
                   },
                 ),
@@ -441,31 +409,8 @@ class _CategoriesState extends State<Categories> {
     );
   }
 
-  Widget _buildCategoryChip(String label, String imageUrl) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Chip(
-        avatar: CircleAvatar(
-          backgroundImage: NetworkImage(imageUrl),
-        ),
-        label: Text(
-          label,
-          style: GoogleFonts.getFont(
-            'Roboto Condensed',
-            fontWeight: FontWeight.w400,
-            fontSize: 16,
-            color: const Color(0xFF000000),
-          ),
-        ),
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildItemCard(String imageUrl, String title, String price) {
+  Widget _buildItemCard(
+      String imageUrl, String title, String price, Product product) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -509,7 +454,12 @@ class _CategoriesState extends State<Categories> {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
-                // Handle add to cart button press
+                // Navigate to cart page with product data
+                Get.to(() => CartPage(
+                      productName: product.productName,
+                      productImage: product.productImage,
+                      productPrice: product.productPrice,
+                    ));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xC91B9527),
@@ -555,16 +505,15 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      productId: json['product_id'] ?? 0, // Default to 0 if null
+      productId: json['product_id'] ?? 0,
       category: Category.fromJson(json['category']),
-      productName:
-          json['product_name'] ?? 'Unknown', // Default to 'Unknown' if null
+      productName: json['product_name'] ?? 'Unknown',
       productPrice: (json['product_price'] != null)
           ? json['product_price'].toDouble()
-          : 0.0, // Default to 0.0 if null
+          : 0.0,
       productDescription: json['product_description'] ?? '',
       productImage: json['product_image'] ?? '',
-      seller: json['seller'] ?? 0, // Default to 0 if null
+      seller: json['seller'] ?? 0,
     );
   }
 }
@@ -580,9 +529,8 @@ class Category {
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
-      categoryId: json['category_id'] ?? 0, // Default to 0 if null
-      categoryName:
-          json['category_name'] ?? 'Unknown', // Default to 'Unknown' if null
+      categoryId: json['category_id'] ?? 0,
+      categoryName: json['category_name'] ?? 'Unknown',
     );
   }
 }
